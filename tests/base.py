@@ -48,7 +48,7 @@ class Base:
 
     def response_info(self, response):
         url = response.url
-        x_backend_server = response.headers['X-Backend-Server']
+        x_backend_server = response.headers.get('X-Backend-Server') or 'Unknown'
         return 'Response URL: %s\n X-Backend-Server: %s' % (url,
                                                             x_backend_server)
 
