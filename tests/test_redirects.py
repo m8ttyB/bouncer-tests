@@ -57,6 +57,14 @@ class TestRedirects(Base):
                 param,
                 response)
         )
+        Assert.not_equal(
+            self.get_x_backend_server(response),
+            'Unknown',
+            'Failed, x-backend-server was not in the response object. %s' %
+            (self.response_info_failure_message(base_url,
+                param,
+                response))
+        )
 
     def test_that_checks_redirect_using_locales_and_os(
         self,
@@ -93,6 +101,14 @@ class TestRedirects(Base):
             'Failed by redirected to incorrect scheme %s. \n %s' %
             (parsed_url.scheme, self.response_info_failure_message(
                 base_url,
+                param,
+                response))
+        )
+        Assert.not_equal(
+            self.get_x_backend_server(response),
+            'Unknown',
+            'Failed, x-backend-server was not in the response object %s' %
+            (self.response_info_failure_message(base_url,
                 param,
                 response))
         )
@@ -136,6 +152,14 @@ class TestRedirects(Base):
             'Failed by redirected to incorrect host %s. \n %s' %
             (parsed_url.netloc, self.response_info_failure_message(
                 base_url,
+                param,
+                response))
+        )
+        Assert.not_equal(
+            self.get_x_backend_server(response),
+            'Unknown',
+            'Failed, x-backend-server was not in the response object %s' %
+            (self.response_info_failure_message(base_url,
                 param,
                 response))
         )
@@ -207,6 +231,14 @@ class TestRedirects(Base):
                 'Failed by redirected to incorrect host %s. \n %s' %
                 (parsed_url.netloc, self.response_info_failure_message(
                     base_url,
+                    param,
+                    response))
+            )
+            Assert.not_equal(
+                self.get_x_backend_server(response),
+                'Unknown',
+                'Failed, x-backend-server was not in the response object %s' %
+                (self.response_info_failure_message(base_url,
                     param,
                     response))
             )
