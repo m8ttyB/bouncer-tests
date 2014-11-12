@@ -218,7 +218,7 @@ class TestRedirects(Base):
             Assert.equal(
                 parsed_url.scheme,
                 url_scheme,
-                'Failed by redirected to incorrect scheme %s. \n %s' %
+                'Failed, redirected to incorrect scheme %s. \n %s' %
                 (parsed_url.scheme, self.response_info_failure_message(
                     base_url,
                     param,
@@ -226,9 +226,10 @@ class TestRedirects(Base):
             )
             Assert.true(
                 parsed_url.netloc in ['download.cdn.mozilla.net', 'edgecastcdn.net',
-                        'download-installer.cdn.mozilla.net', 'ftp.mozilla.org']
+                        'download-installer.cdn.mozilla.net', 'cloudfront.net',
+                        'ftp.mozilla.org']
                ,
-                'Failed by redirected to incorrect host %s. \n %s' %
+                'Failed, redirected to unknown host %s. \n %s' %
                 (parsed_url.netloc, self.response_info_failure_message(
                     base_url,
                     param,
