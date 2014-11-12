@@ -48,9 +48,11 @@ class Base:
 
     def response_info(self, response):
         url = response.url
-        x_backend_server = response.headers.get('X-Backend-Server') or 'Unknown'
         return 'Response URL: %s\n X-Backend-Server: %s' % (url,
-                                                            x_backend_server)
+                                                           self.get_x_backend_server(response))
+
+    def get_x_backend_server(self, response):
+        return response.headers.get('X-Backend-Server') or 'Unknown'
 
     def _build_request_url(self, url, params):
         if params:
