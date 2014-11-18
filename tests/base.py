@@ -48,15 +48,14 @@ class Base:
 
     def response_info(self, response):
         url = response.url
-        return 'Response URL: %s\n X-Backend-Server: %s\n Response Headers: %s' \
-               % (url, self.get_x_backend_server(response), self.get_headers(response))
+        return 'Response URL: %s\n Response Headers:\n %s' \
+               % (url, self.get_headers(response))
 
     def get_x_backend_server(self, response):
         return response.headers.get('X-Backend-Server') or 'Unknown'
 
     def get_headers(self, response):
-        headers = ['%s: %s' % (header, response.headers[header]) for header in response.headers]
-        return '\n'.join(headers)
+        return '\n'.join(['%s: %s' % (header, value) for header, value in response.headers.items()])
 
     def _build_request_url(self, url, params):
         if params:
