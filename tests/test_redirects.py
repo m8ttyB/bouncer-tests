@@ -70,10 +70,6 @@ class TestRedirects(Base):
                 'Failed, x-backend-server was not in the response object %s' %
                 (self.response_info_failure_message(base_url, param, response)))
 
-    # xfail as mentioned in https://github.com/mozilla/bouncer-tests/issues/46
-    @pytest.mark.xfail(
-        "config.getvalue('base_url') == 'http://download.allizom.org'"
-    )
     def test_stub_installer_redirect_for_en_us_and_win(self, base_url, product):
         param = {
             'product': product,
@@ -109,22 +105,6 @@ class TestRedirects(Base):
         {'product_name': 'firefox-nightly-latest', 'lang': 'en-US'},
     ])
     def test_redirect_for_firefox_aliases(self, base_url, product_alias):
-        if product_alias == {
-            'product_name': 'firefox-latest',
-            'lang': 'en-US'
-        } and base_url == 'http://download.allizom.org':
-            pytest.xfail(
-                reason='https://bugzilla.mozilla.org/show_bug.cgi?id=813968 - '
-                'Alias returns 404')
-
-        if product_alias == {
-            'product_name': 'firefox-nightly-latest',
-            'lang': 'en-US'
-        } and base_url == 'http://download.allizom.org':
-            pytest.xfail(
-                reason='https://github.com/mozilla/bouncer-tests/issues/46'
-                'Alias returns 404')
-
         param = {
             'product': product_alias['product_name'],
             'os': 'win',
