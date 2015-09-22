@@ -25,7 +25,7 @@ class Base:
         except requests.RequestException as e:
             request_url = self._build_request_url(url, params)
 
-            assert False, 'Failing URL: %s.\nError message: %s' % (request_url, e)
+            raise AssertionError('Failing URL: %s.\nError message: %s' % (request_url, e))
 
 	if r.status_code == 302 and r.headers['Location']:
 	    try:
@@ -33,7 +33,7 @@ class Base:
 	        r = requests.head(request_url, headers=headers, verify=False, timeout=15,
                                   allow_redirects=True)
             except requests.RequestException as e:
-                assert False, 'Failing URL: %s.\nError message: %s' % (request_url, e)
+                raise AssertionError('Failing URL: %s.\nError message: %s' % (request_url, e))
 
 	return r
 
