@@ -6,7 +6,6 @@ from urllib import urlencode
 
 import requests
 from bs4 import BeautifulSoup
-from unittestzero import Assert
 
 
 class Base:
@@ -26,7 +25,7 @@ class Base:
         except requests.RequestException as e:
             request_url = self._build_request_url(url, params)
 
-            Assert.fail('Failing URL: %s.\nError message: %s' % (request_url, e))
+            assert False, 'Failing URL: %s.\nError message: %s' % (request_url, e)
 
 	if r.status_code == 302 and r.headers['Location']:
 	    try:
@@ -34,7 +33,7 @@ class Base:
 	        r = requests.head(request_url, headers=headers, verify=False, timeout=15,
                                   allow_redirects=True)
             except requests.RequestException as e:
-                Assert.fail('Failing URL: %s.\nError message: %s' % (request_url, e))
+                assert False, 'Failing URL: %s.\nError message: %s' % (request_url, e)
 
 	return r
 
