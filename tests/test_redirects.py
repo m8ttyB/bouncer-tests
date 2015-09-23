@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 # This Source Code Form is subject to the terms of the Mozilla Public
 # License, v. 2.0. If a copy of the MPL was not distributed with this file,
 # You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -61,9 +60,7 @@ class TestRedirects(Base):
             self.get_x_backend_server(response),
             'Unknown',
             'Failed, x-backend-server was not in the response object. %s' %
-            (self.response_info_failure_message(base_url,
-                param,
-                response))
+            (self.response_info_failure_message(base_url, param, response))
         )
 
     def test_that_checks_redirect_using_locales_and_os(
@@ -108,9 +105,7 @@ class TestRedirects(Base):
             self.get_x_backend_server(response),
             'Unknown',
             'Failed, x-backend-server was not in the response object %s' %
-            (self.response_info_failure_message(base_url,
-                param,
-                response))
+            (self.response_info_failure_message(base_url, param, response))
         )
 
     # xfail as mentioned in https://github.com/mozilla/bouncer-tests/issues/46
@@ -159,9 +154,7 @@ class TestRedirects(Base):
             self.get_x_backend_server(response),
             'Unknown',
             'Failed, x-backend-server was not in the response object %s' %
-            (self.response_info_failure_message(base_url,
-                param,
-                response))
+            (self.response_info_failure_message(base_url, param, response))
         )
 
     @pytest.mark.parametrize('product_alias', [
@@ -225,10 +218,11 @@ class TestRedirects(Base):
                     response))
             )
             Assert.true(
-                parsed_url.netloc in ['download.cdn.mozilla.net', 'edgecastcdn.net',
-                        'download-installer.cdn.mozilla.net', 'cloudfront.net',
-                        'ftp.mozilla.org']
-               ,
+                parsed_url.netloc in ['download.cdn.mozilla.net',
+                                      'edgecastcdn.net',
+                                      'download-installer.cdn.mozilla.net',
+                                      'cloudfront.net',
+                                      'ftp.mozilla.org'],
                 'Failed, redirected to unknown host %s. \n %s' %
                 (parsed_url.netloc, self.response_info_failure_message(
                     base_url,
@@ -239,9 +233,7 @@ class TestRedirects(Base):
                 self.get_x_backend_server(response),
                 'Unknown',
                 'Failed, x-backend-server was not in the response object %s' %
-                (self.response_info_failure_message(base_url,
-                    param,
-                    response))
+                (self.response_info_failure_message(base_url, param, response))
             )
             if (
                 product_alias['product_name'] != 'firefox-nightly-latest' and
