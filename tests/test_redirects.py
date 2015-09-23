@@ -26,7 +26,7 @@ class TestRedirects(Base):
 
         parsed_url = urlparse(response.url)
         assert ('http' == parsed_url.scheme, 'Failed to redirect to the correct scheme. %s' %
-                (self.response_info_failure_message(base_url, param, response)))
+                self.response_info_failure_message(base_url, param, response))
 
         assert (urlparse(base_url).netloc == parsed_url.netloc,
                 self.response_info_failure_message(base_url, param, response))
@@ -36,7 +36,7 @@ class TestRedirects(Base):
 
         assert ('Unknown' != self.get_x_backend_server(response),
                 'Failed, x-backend-server was not in the response object. %s' %
-                (self.response_info_failure_message(base_url, param, response)))
+                self.response_info_failure_message(base_url, param, response))
 
     def test_that_checks_redirect_using_locales_and_os(
         self,
@@ -59,16 +59,16 @@ class TestRedirects(Base):
         parsed_url = urlparse(response.url)
 
         assert (requests.codes.ok == response.status_code,
-                'Redirect failed with HTTP status %s. \n %s' %
-                (response.status_code, self.response_info_failure_message(base_url, param, response)))
+                'Redirect failed with HTTP status. %s' %
+                response.status_code, self.response_info_failure_message(base_url, param, response))
 
         assert ('http' == parsed_url.scheme,
                'Failed to redirect to the correct scheme. %s' %
-                (self.response_info_failure_message(base_url, param, response)))
+                self.response_info_failure_message(base_url, param, response))
 
         assert ('Unknown' != self.get_x_backend_server(response),
                 'Failed, x-backend-server was not in the response object %s' %
-                (self.response_info_failure_message(base_url, param, response)))
+                self.response_info_failure_message(base_url, param, response))
 
     def test_stub_installer_redirect_for_en_us_and_win(self, base_url, product):
         param = {
@@ -82,20 +82,20 @@ class TestRedirects(Base):
         parsed_url = urlparse(response.url)
 
         assert (requests.codes.ok == response.status_code,
-                'Redirect failed with HTTP status %s. \n %s' %
-                (response.status_code, self.response_info_failure_message(base_url, param, response)))
+                'Redirect failed with HTTP status. %s' %
+                response.status_code, self.response_info_failure_message(base_url, param, response))
 
         assert ('https' == parsed_url.scheme,
                 'Failed to redirect to the correct scheme. %s' %
-                (self.response_info_failure_message(base_url, param, response)))
+                self.response_info_failure_message(base_url, param, response))
 
         assert ('download-installer.cdn.mozilla.net' == parsed_url.netloc,
-                'Failed by redirected to incorrect host %s. \n %s' %
-                (parsed_url.netloc, self.response_info_failure_message(base_url, param, response)))
+                'Failed by redirected to incorrect host. %s' %
+                self.response_info_failure_message(base_url, param, response))
 
         assert ('Unknown' != self.get_x_backend_server(response),
                 'Failed, x-backend-server was not in the response object %s' %
-                (self.response_info_failure_message(base_url, param, response)))
+                self.response_info_failure_message(base_url, param, response))
 
     @pytest.mark.parametrize('product_alias', [
         {'product_name': 'firefox-beta-latest', 'lang': 'en-US'},
@@ -123,28 +123,28 @@ class TestRedirects(Base):
             if product_alias['product_name'] == 'firefox-beta-stub':
                 url_scheme = 'https'
             assert (requests.codes.ok == response.status_code,
-                    'Redirect failed with HTTP status %s. \n %s' %
-                    (response.status_code, self.response_info_failure_message(base_url, param, response)))
+                    'Redirect failed with HTTP status. %s' %
+                    response.status_code, self.response_info_failure_message(base_url, param, response))
 
             assert (url_scheme == parsed_url.scheme,
                     'Failed to redirect to the correct scheme. %s' %
-                    (self.response_info_failure_message(base_url, param, response)))
+                    self.response_info_failure_message(base_url, param, response))
 
             assert (parsed_url.netloc in ['download.cdn.mozilla.net', 'edgecastcdn.net',
                     'download-installer.cdn.mozilla.net', 'cloudfront.net', 'ftp.mozilla.org'],
-                    'Failed, redirected to unknown host %s. \n %s' %
-                    (parsed_url.netloc, self.response_info_failure_message(base_url, param, response)))
+                    'Failed, redirected to unknown host. %s' %
+                    self.response_info_failure_message(base_url, param, response))
 
             assert ('Unknown' != self.get_x_backend_server(response),
                     'Failed, x-backend-server was not in the response object %s' %
-                    (self.response_info_failure_message(base_url, param, response)))
+                    self.response_info_failure_message(base_url, param, response))
 
             if (
                 product_alias['product_name'] != 'firefox-nightly-latest' and
                 product_alias['product_name'] != 'firefox-aurora-latest' and
                 product_alias['product_name'] != 'firefox-latest-euballot'
             ):
-                assert '/win32/' in parsed_url.path, '%s' % self.response_info(response)
+                assert '/win32/' in parsed_url.path, self.response_info(response)
 
     def test_robotstxt_exists(self, base_url):
 
