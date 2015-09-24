@@ -60,7 +60,7 @@ class TestRedirects(Base):
 
         assert (requests.codes.ok == response.status_code,
                 'Redirect failed with HTTP status. %s' %
-                response.status_code, self.response_info_failure_message(base_url, param, response))
+                self.response_info_failure_message(base_url, param, response))
 
         assert ('http' == parsed_url.scheme,
                'Failed to redirect to the correct scheme. %s' %
@@ -83,7 +83,7 @@ class TestRedirects(Base):
 
         assert (requests.codes.ok == response.status_code,
                 'Redirect failed with HTTP status. %s' %
-                response.status_code, self.response_info_failure_message(base_url, param, response))
+                self.response_info_failure_message(base_url, param, response))
 
         assert ('https' == parsed_url.scheme,
                 'Failed to redirect to the correct scheme. %s' %
@@ -124,7 +124,7 @@ class TestRedirects(Base):
                 url_scheme = 'https'
             assert (requests.codes.ok == response.status_code,
                     'Redirect failed with HTTP status. %s' %
-                    response.status_code, self.response_info_failure_message(base_url, param, response))
+                    self.response_info_failure_message(base_url, param, response))
 
             assert (url_scheme == parsed_url.scheme,
                     'Failed to redirect to the correct scheme. %s' %
