@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 # This Source Code Form is subject to the terms of the Mozilla Public
 # License, v. 2.0. If a copy of the MPL was not distributed with this file,
 # You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -25,6 +24,7 @@ class TestRedirects(Base):
                 self.response_info_failure_message(base_url, param, response))
 
         parsed_url = urlparse(response.url)
+
         assert ('http' == parsed_url.scheme, 'Failed to redirect to the correct scheme. %s' %
                 self.response_info_failure_message(base_url, param, response))
 
@@ -121,6 +121,7 @@ class TestRedirects(Base):
             url_scheme = 'http'
             if product_alias['product_name'] == 'firefox-beta-stub':
                 url_scheme = 'https'
+
             assert (requests.codes.ok == response.status_code,
                     'Redirect failed with HTTP status. %s' %
                     self.response_info_failure_message(base_url, param, response))
