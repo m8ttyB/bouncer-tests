@@ -95,7 +95,7 @@ LOCALES = (
     'zu'
 )
 
-OS = ('win', 'linux', 'osx')
+OS = ('win', 'win64', 'linux', 'linux64', 'osx')
 
 
 def pytest_generate_tests(metafunc):
