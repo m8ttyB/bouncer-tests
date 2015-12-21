@@ -145,10 +145,3 @@ class TestRedirects(Base):
                 product_alias['product_name'] != 'firefox-latest-euballot'
             ):
                 assert '/win32/' in parsed_url.path, self.response_info(response)
-
-    def test_robotstxt_exists(self, base_url):
-
-        url = '%s/robots.txt' % base_url
-        response = self._head_request(url)
-
-        assert requests.codes.ok == response.status_code, 'Robots.txt does not exist'
