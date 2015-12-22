@@ -12,10 +12,10 @@ from base import Base
 
 class TestRedirects(Base):
 
-    @pytest.mark.parametrize(('product_alias'), [
-        '38.5.1esr', 'latest', '42.0', '43.0.1', '44.0', '44.0b1'
-    ])
-    def test_ie6_winxp_useragent_string_redirects_to_correct_version(self, base_url, product_alias):
+    _winxp_products = ['38.5.1esr', 'latest', '42.0', '43.0.1', '44.0', '44.0b1']
+
+    @pytest.mark.parametrize(('product_alias'), _winxp_products)
+    def test_ie6_winxp_useragent_5_1_redirects_to_correct_version(self, base_url, product_alias):
         # With Bug 1233779, WinXP bouncer is configured to redirect users
         # to Firefox version 43.0.1 if they visit firefox-latest and firefox-44.0
         user_agent_ie6 = ('Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1)')
@@ -25,10 +25,28 @@ class TestRedirects(Base):
             'lang': 'en-US',
             'os': 'win'
         }
-
         response = self._head_request(base_url, user_agent=user_agent_ie6, params=param)
         parsed_url = urlparse(response.url)
 
+        self._verify_winxp_redirect_rules(product_alias, response, parsed_url)
+
+    @pytest.mark.parametrize(('product_alias'), _winxp_products)
+    def test_ie6_winxp_useragent_5_2_redirects_to_correct_version(self, base_url, product_alias):
+        # With Bug 1233779, WinXP bouncer is configured to redirect users
+        # to Firefox version 43.0.1 if they visit firefox-latest and firefox-44.0
+        user_agent_ie6 = ('Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.2; SV1)')
+
+        param = {
+            'product': 'firefox-' + product_alias,
+            'lang': 'en-US',
+            'os': 'win'
+        }
+        response = self._head_request(base_url, user_agent=user_agent_ie6, params=param)
+        parsed_url = urlparse(response.url)
+
+        self._verify_winxp_redirect_rules(product_alias, response, parsed_url)
+
+    def _verify_winxp_redirect_rules(self, product_alias, response, parsed_url):
         if product_alias in ['latest', '44.0', '43.0.1']:
             assert '43.0.1.exe' in parsed_url.path
         else:
