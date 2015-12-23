@@ -12,7 +12,18 @@ from base import Base
 
 class TestRedirects(Base):
 
-    _winxp_products = ['38.5.1esr', 'latest', '42.0', '43.0.1', '44.0', '44.0b1']
+    _winxp_products = [
+        '38.5.1esr',
+        '38.5.2esr',
+        '38.5.3esr',
+        '38.6.3esr',
+        '40.0.0esr',
+        'latest',
+        '42.0',
+        '43.0.1',
+        '44.0',
+        '44.0b1'
+    ]
 
     @pytest.mark.parametrize(('product_alias'), _winxp_products)
     def test_ie6_winxp_useragent_5_1_redirects_to_correct_version(self, base_url, product_alias):
@@ -40,6 +51,8 @@ class TestRedirects(Base):
         parsed_url = urlparse(response.url)
         if product_alias in ['latest', '44.0', '43.0.1']:
             assert '43.0.1.exe' in parsed_url.path
+        elif 'esr' in product_alias:
+            assert '38.5.1esr' in parsed_url.path
         else:
             assert (product_alias + '.exe') in parsed_url.path
 
