@@ -22,6 +22,8 @@ class TestRedirects(Base):
         '42.0',
         '43.0.1',
         '44.0',
+        'beta-latest',
+        'beta',
         '44.0b1'
     ]
 
@@ -52,7 +54,9 @@ class TestRedirects(Base):
         if product_alias in ['latest', '44.0', '43.0.1']:
             assert '43.0.1.exe' in parsed_url.path
         elif 'esr' in product_alias:
-            assert '38.5.1esr' in parsed_url.path
+            assert '38.5.1esr.exe' in parsed_url.path
+        elif product_alias in ['beta-latest', 'beta', '44.0b1']:
+            assert '44.0b1.exe' in parsed_url.path
         else:
             assert (product_alias + '.exe') in parsed_url.path
 
