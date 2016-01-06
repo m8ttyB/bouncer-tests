@@ -18,6 +18,7 @@ class TestRedirects(Base):
         '38.5.3esr',
         '38.6.3esr',
         '40.0.0esr',
+        'stub',
         'latest',
         '42.0',
         '43.0.1',
@@ -51,7 +52,7 @@ class TestRedirects(Base):
         }
         response = self._head_request(base_url, user_agent=user_agent, params=param)
         parsed_url = urlparse(response.url)
-        if product_alias in ['latest', '44.0', '43.0.1']:
+        if product_alias in ['stub', 'latest', '44.0', '43.0.1']:
             assert '43.0.1.exe' in parsed_url.path
         elif 'esr' in product_alias:
             assert '38.5.1esr.exe' in parsed_url.path
@@ -67,8 +68,8 @@ class TestRedirects(Base):
             'lang': 'en-US',
             'os': 'win'
         }
-        respsonse = self._head_request(base_url, user_agent=user_agent, params=param)
-        parsed_url = urlparse(respsonse.url)
+        response = self._head_request(base_url, user_agent=user_agent, params=param)
+        parsed_url = urlparse(response.url)
         assert '43.0.1.exe' in parsed_url.path
 
     def test_that_checks_redirect_using_incorrect_query_values(self, base_url):
