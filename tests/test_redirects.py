@@ -60,6 +60,17 @@ class TestRedirects(Base):
         else:
             assert (product_alias + '.exe') in parsed_url.path
 
+    def test_ie6_vista_6_0_redirects_to_correct_version(self, base_url):
+        user_agent = ('Mozilla/5.0 (Windows; U; MSIE 6.0; Windows NT 6.0; SV1; .NET CLR 2.0.50727)')
+        param = {
+            'product': 'firefox-stub',
+            'lang': 'en-US',
+            'os': 'win'
+        }
+        respsonse = self._head_request(base_url, user_agent=user_agent, params=param)
+        parsed_url = urlparse(respsonse.url)
+        assert '43.0.1.exe' in parsed_url.path
+
     def test_that_checks_redirect_using_incorrect_query_values(self, base_url):
         param = {
             'product': 'firefox-31.0',
