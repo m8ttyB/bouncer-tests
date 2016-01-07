@@ -18,6 +18,7 @@ class TestRedirects(Base):
         '38.5.3esr',
         '38.6.3esr',
         '40.0.0esr',
+        'stub',
         'latest',
         '42.0',
         '43.0.1',
@@ -51,7 +52,7 @@ class TestRedirects(Base):
         }
         response = self._head_request(base_url, user_agent=user_agent, params=param)
         parsed_url = urlparse(response.url)
-        if product_alias in ['latest', '44.0', '43.0.1']:
+        if product_alias in ['stub', 'latest', '44.0', '43.0.1']:
             assert '43.0.1.exe' in parsed_url.path
         elif 'esr' in product_alias:
             assert '38.5.1esr.exe' in parsed_url.path
@@ -59,6 +60,17 @@ class TestRedirects(Base):
             assert '44.0b1.exe' in parsed_url.path
         else:
             assert (product_alias + '.exe') in parsed_url.path
+
+    def test_ie6_vista_6_0_redirects_to_correct_version(self, base_url):
+        user_agent = ('Mozilla/5.0 (Windows; U; MSIE 6.0; Windows NT 6.0; SV1; .NET CLR 2.0.50727)')
+        param = {
+            'product': 'firefox-stub',
+            'lang': 'en-US',
+            'os': 'win'
+        }
+        response = self._head_request(base_url, user_agent=user_agent, params=param)
+        parsed_url = urlparse(response.url)
+        assert '43.0.1.exe' in parsed_url.path
 
     def test_that_checks_redirect_using_incorrect_query_values(self, base_url):
         param = {
