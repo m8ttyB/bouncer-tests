@@ -31,7 +31,7 @@ class Base:
             try:
                 request_url = r.headers['Location']
                 r = requests.head(request_url, headers=headers, verify=False,
-                                  timeout=300, allow_redirects=True)
+                                  timeout=15, allow_redirects=True)
             except requests.RequestException as e:
                 raise AssertionError('Failing URL: %s.\nError message: %s' % (request_url, e))
 
