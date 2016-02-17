@@ -12,8 +12,7 @@ This repository contains tests for Mozilla's [Bouncer website](https://wiki.mozi
 We love working with contributors to fill out the test coverage for Mozilla's
 support website, but it does require a few skills. By contributing to our test
 suite you will have an opportunity to learn and/or improve your skills with
-Python, Selenium WebDriver, GitHub, virtual environments, the Page Object
-Model, and more.
+Python, GitHub, and virtual environments.
 
 For some resources for learning about these technologies, take a look at our
 documentation on [running Web QA automated tests][running-tests].
